@@ -1,0 +1,2486 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#f57c00">
+
+    <title>Friend's Group BILDI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* LOGIN */
+
+        #loginScreen {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff3e0, #ffffff);
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px 22px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+
+        .logo {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .login-title {
+            color: #f57c00;
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .login-subtitle {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* APP */
+
+        #appScreen {
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f57c00, #ef6c00);
+            color: white;
+            padding: 14px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .brand-text {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            border: 1px solid rgba(255,255,255,0.7);
+            background: transparent;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 15px;
+        }
+
+        /* NAV */
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+        }
+
+        .tab {
+            white-space: nowrap;
+            border: none;
+            padding: 11px 15px;
+            border-radius: 12px;
+            background: white;
+            color: #555;
+            cursor: pointer;
+            box-shadow: 0 2px 7px rgba(0,0,0,0.08);
+        }
+
+        .tab.active {
+            background: #f57c00;
+            color: white;
+        }
+
+        /* CARDS */
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h2,
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .section-title {
+            color: #ef6c00;
+            margin-bottom: 15px;
+        }
+
+        /* FORM */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            outline: none;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #f57c00;
+        }
+
+        .primary-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: #f57c00;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .primary-btn:hover {
+            background: #e96f00;
+        }
+
+        .secondary-btn {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 9px;
+            background: #eeeeee;
+            cursor: pointer;
+        }
+
+        .danger-btn {
+            padding: 8px 11px;
+            border: none;
+            border-radius: 8px;
+            background: #d32f2f;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* DASHBOARD */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat {
+            background: white;
+            border-radius: 15px;
+            padding: 18px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+        }
+
+        .stat-title {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .stat-value {
+            font-size: 25px;
+            font-weight: bold;
+            color: #f57c00;
+            margin-top: 5px;
+        }
+
+        /* TABLE */
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        th,
+        td {
+            padding: 11px 9px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        /* EVENT */
+
+        .event-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .event-btn {
+            padding: 20px;
+            border: none;
+            border-radius: 14px;
+            background: #fff3e0;
+            color: #e65100;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .event-btn.active {
+            background: #f57c00;
+            color: white;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+            color: #888;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 9px;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* MODAL */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 18px;
+            padding: 20px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .close-btn {
+            border: none;
+            background: #eee;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .event-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-text {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .card {
+                padding: 14px;
+            }
+        }
+
+        /* PRINT */
+
+        @media print {
+
+            header,
+            .tabs,
+            .no-print,
+            footer,
+            button {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            .container {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<div id="loginScreen">
+
+    <div class="login-box">
+
+        <img src="logo.png" class="logo" alt="Friend's Group BILDI">
+
+        <div class="login-title">
+            Friend's Group BILDI
+        </div>
+
+        <div class="login-subtitle" id="loginSubtitle">
+            તમારી app શરૂ કરવા password નાખો
+        </div>
+
+        <div id="loginMessage" class="message"></div>
+
+        <input
+            type="password"
+            id="passwordInput"
+            placeholder="Password"
+            autocomplete="off"
+        >
+
+        <br><br>
+
+        <button class="primary-btn" onclick="login()">
+            Login
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= APP ================= -->
+
+<div id="appScreen" class="hidden">
+
+    <header>
+
+        <div class="header-inner">
+
+            <div class="brand">
+
+                <img src="logo.png" alt="Logo">
+
+                <div class="brand-text">
+                    Friend's Group BILDI
+                </div>
+
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <!-- TABS -->
+
+        <div class="tabs no-print">
+
+            <button class="tab active" onclick="showPage('dashboard', this)">
+                Dashboard
+            </button>
+
+            <button class="tab" onclick="showPage('income', this)">
+                Monthly Income
+            </button>
+
+            <button class="tab" onclick="showPage('incomeHistory', this)">
+                Income History
+            </button>
+
+            <button class="tab" onclick="showPage('events', this)">
+                Events
+            </button>
+
+            <button class="tab" onclick="showPage('eventHistory', this)">
+                Event History
+            </button>
+
+            <button class="tab" onclick="showPage('backup', this)">
+                Backup
+            </button>
+
+        </div>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="page">
+
+            <div class="card">
+
+                <h2 class="section-title">
+                    Friend's Group BILDI
+                </h2>
+
+                <p>
+                    Monthly contribution અને event expense management system.
+                </p>
+
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <div class="stat-title">
+                        Total Members
+                    </div>
+                    <div class="stat-value" id="totalMembers">
+                        0
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-title">
+                        Total Income
+                    </div>
+                    <div class="stat-value" id="totalIncome">
+                        ₹0
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-title">
+                        Total Event Expense
+                    </div>
+                    <div class="stat-value" id="totalExpense">
+                        ₹0
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h3>
+                    Quick Actions
+                </h3>
+
+                <button
+                    class="primary-btn"
+                    onclick="goToPage('income')"
+                >
+                    + Monthly Income Entry
+                </button>
+
+                <br><br>
+
+                <button
+                    class="primary-btn"
+                    onclick="goToPage('events')"
+                >
+                    + Event Expense Entry
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MONTHLY INCOME ================= -->
+
+        <section id="income" class="page hidden">
+
+            <div class="card">
+
+                <h2 class="section-title">
+                    Monthly Income Entry
+                </h2>
+
+                <div id="incomeMessage" class="message"></div>
+
+                <form onsubmit="saveIncome(event)">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Member Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="memberName"
+                                placeholder="સભ્યનું નામ"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Mobile Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="mobile"
+                                placeholder="મોબાઇલ નંબર"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="incomeDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Month
+                            </label>
+
+                            <select id="incomeMonth" required>
+
+                                <option value="">
+                                    Month પસંદ કરો
+                                </option>
+
+                                <option value="January">
+                                    January
+                                </option>
+
+                                <option value="February">
+                                    February
+                                </option>
+
+                                <option value="March">
+                                    March
+                                </option>
+
+                                <option value="April">
+                                    April
+                                </option>
+
+                                <option value="May">
+                                    May
+                                </option>
+
+                                <option value="June">
+                                    June
+                                </option>
+
+                                <option value="July">
+                                    July
+                                </option>
+
+                                <option value="August">
+                                    August
+                                </option>
+
+                                <option value="September">
+                                    September
+                                </option>
+
+                                <option value="October">
+                                    October
+                                </option>
+
+                                <option value="November">
+                                    November
+                                </option>
+
+                                <option value="December">
+                                    December
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label>
+                                Amount Deposited
+                            </label>
+
+                            <input
+                                type="number"
+                                id="incomeAmount"
+                                placeholder="₹ Amount"
+                                min="0"
+                                step="0.01"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="full">
+
+                            <button
+                                class="primary-btn"
+                                type="submit"
+                            >
+                                Save Income
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= INCOME HISTORY ================= -->
+
+        <section id="incomeHistory" class="page hidden">
+
+            <div class="card">
+
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+
+                    <h2 class="section-title">
+                        Income History
+                    </h2>
+
+                    <button
+                        class="secondary-btn no-print"
+                        onclick="printIncome()"
+                    >
+                        🖨️ Income PDF
+                    </button>
+
+                </div>
+
+
+                <div class="form-grid no-print">
+
+                    <div class="form-group">
+
+                        <label>
+                            Month Filter
+                        </label>
+
+                        <select
+                            id="historyMonth"
+                            onchange="renderIncomeHistory()"
+                        >
+
+                            <option value="">
+                                All Months
+                            </option>
+
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>No.</th>
+                                <th>Member</th>
+                                <th>Mobile</th>
+                                <th>Date</th>
+                                <th>Month</th>
+                                <th>Amount</th>
+                                <th class="no-print">Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="incomeTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EVENTS ================= -->
+
+        <section id="events" class="page hidden">
+
+            <div class="card">
+
+                <h2 class="section-title">
+                    Event પસંદ કરો
+                </h2>
+
+                <div class="event-buttons">
+
+                    <button
+                        class="event-btn"
+                        id="ganpatiBtn"
+                        onclick="selectEvent('ગણપતિ ઉત્સવ')"
+                    >
+                        🪔 ગણપતિ ઉત્સવ
+                    </button>
+
+                    <button
+                        class="event-btn"
+                        id="kundaBtn"
+                        onclick="selectEvent('કુંડા વિતરણ')"
+                    >
+                        🌱 કુંડા વિતરણ
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2 class="section-title">
+                    Event Expense
+                </h2>
+
+                <div id="eventMessage" class="message"></div>
+
+                <form onsubmit="saveExpense(event)">
+
+                    <div class="form-grid">
+
+                        <div class="form-group full">
+
+                            <label>
+                                Event
+                            </label>
+
+                            <input
+                                type="text"
+                                id="eventName"
+                                placeholder="ઉપરથી Event પસંદ કરો"
+                                readonly
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Expense Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="expenseDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Expense Amount
+                            </label>
+
+                            <input
+                                type="number"
+                                id="expenseAmount"
+                                placeholder="₹ Amount"
+                                min="0"
+                                step="0.01"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label>
+                                Expense Details
+                            </label>
+
+                            <input
+                                type="text"
+                                id="expenseDetails"
+                                placeholder="ઉદાહરણ: Decoration, Food, Plants..."
+                            >
+
+                        </div>
+
+
+                        <div class="full">
+
+                            <button
+                                class="primary-btn"
+                                type="submit"
+                            >
+                                Save Expense
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EVENT HISTORY ================= -->
+
+        <section id="eventHistory" class="page hidden">
+
+            <div class="card">
+
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+
+                    <h2 class="section-title">
+                        Event History
+                    </h2>
+
+                    <button
+                        class="secondary-btn no-print"
+                        onclick="printEvents()"
+                    >
+                        🖨️ Event PDF
+                    </button>
+
+                </div>
+
+
+                <div class="form-grid no-print">
+
+                    <div class="form-group">
+
+                        <label>
+                            Event Filter
+                        </label>
+
+                        <select
+                            id="historyEvent"
+                            onchange="renderEventHistory()"
+                        >
+
+                            <option value="">
+                                All Events
+                            </option>
+
+                            <option value="ગણપતિ ઉત્સવ">
+                                ગણપતિ ઉત્સવ
+                            </option>
+
+                            <option value="કુંડા વિતરણ">
+                                કુંડા વિતરણ
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>No.</th>
+                                <th>Event</th>
+                                <th>Date</th>
+                                <th>Details</th>
+                                <th>Amount</th>
+                                <th class="no-print">Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="eventTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= BACKUP ================= -->
+
+        <section id="backup" class="page hidden">
+
+            <div class="card">
+
+                <h2 class="section-title">
+                    Backup & Restore
+                </h2>
+
+                <p>
+                    તમારો data backup કરવા માટે નીચેનું button દબાવો.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="backupData()"
+                >
+                    ⬇️ Backup Data
+                </button>
+
+                <br><br>
+
+                <label>
+                    Restore Backup File
+                </label>
+
+                <input
+                    type="file"
+                    id="restoreFile"
+                    accept=".json"
+                    onchange="restoreData(event)"
+                >
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    ⚠️ મહત્વની માહિતી
+                </h3>
+
+                <p>
+                    Appનો data આ deviceમાં locally save થાય છે.
+                    Phone બદલતા પહેલાં Backup Data જરૂરથી કરો.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        Friend's Group BILDI © 2026
+    </footer>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const INCOME_KEY = "fgb_income_data";
+const EXPENSE_KEY = "fgb_expense_data";
+const PASSWORD_KEY = "fgb_password";
+
+
+function getIncomeData() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(INCOME_KEY) || "[]"
+        );
+
+    } catch (e) {
+
+        return [];
+
+    }
+}
+
+
+function getExpenseData() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(EXPENSE_KEY) || "[]"
+        );
+
+    } catch (e) {
+
+        return [];
+
+    }
+}
+
+
+function saveIncomeData(data) {
+
+    localStorage.setItem(
+        INCOME_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+function saveExpenseData(data) {
+
+    localStorage.setItem(
+        EXPENSE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function showLoginMessage(text, type = "error") {
+
+    const box = document.getElementById("loginMessage");
+
+    box.textContent = text;
+
+    box.className = "message " + type;
+
+    box.style.display = "block";
+
+}
+
+
+function checkLoginSetup() {
+
+    const savedPassword =
+        localStorage.getItem(PASSWORD_KEY);
+
+    if (!savedPassword) {
+
+        document.getElementById("loginSubtitle").textContent =
+            "પહેલી વાર password બનાવો";
+
+    } else {
+
+        document.getElementById("loginSubtitle").textContent =
+            "તમારી app શરૂ કરવા password નાખો";
+
+    }
+
+}
+
+
+function login() {
+
+    const password =
+        document.getElementById("passwordInput").value.trim();
+
+    if (!password) {
+
+        showLoginMessage(
+            "Password નાખો."
+        );
+
+        return;
+
+    }
+
+
+    const savedPassword =
+        localStorage.getItem(PASSWORD_KEY);
+
+
+    if (!savedPassword) {
+
+        localStorage.setItem(
+            PASSWORD_KEY,
+            password
+        );
+
+        openApp();
+
+        return;
+
+    }
+
+
+    if (password === savedPassword) {
+
+        openApp();
+
+    } else {
+
+        showLoginMessage(
+            "Password ખોટો છે."
+        );
+
+    }
+
+}
+
+
+function openApp() {
+
+    document.getElementById("loginScreen")
+        .classList.add("hidden");
+
+    document.getElementById("appScreen")
+        .classList.remove("hidden");
+
+    document.getElementById("passwordInput").value = "";
+
+    setToday();
+
+    updateDashboard();
+
+    renderIncomeHistory();
+
+    renderEventHistory();
+
+}
+
+
+function logout() {
+
+    document.getElementById("appScreen")
+        .classList.add("hidden");
+
+    document.getElementById("loginScreen")
+        .classList.remove("hidden");
+
+    document.getElementById("passwordInput").value = "";
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(pageId, button) {
+
+    document.querySelectorAll(".page")
+        .forEach(page => {
+
+            page.classList.add("hidden");
+
+        });
+
+
+    const page =
+        document.getElementById(pageId);
+
+    if (page) {
+
+        page.classList.remove("hidden");
+
+    }
+
+
+    document.querySelectorAll(".tab")
+        .forEach(tab => {
+
+            tab.classList.remove("active");
+
+        });
+
+
+    if (button) {
+
+        button.classList.add("active");
+
+    }
+
+
+    updateDashboard();
+
+
+    if (pageId === "incomeHistory") {
+
+        renderIncomeHistory();
+
+    }
+
+
+    if (pageId === "eventHistory") {
+
+        renderEventHistory();
+
+    }
+
+}
+
+
+function goToPage(pageId) {
+
+    const tabs =
+        document.querySelectorAll(".tab");
+
+    let index = 0;
+
+    if (pageId === "income") index = 1;
+    if (pageId === "incomeHistory") index = 2;
+    if (pageId === "events") index = 3;
+    if (pageId === "eventHistory") index = 4;
+    if (pageId === "backup") index = 5;
+
+    showPage(
+        pageId,
+        tabs[index]
+    );
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function setToday() {
+
+    const today =
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+    const incomeDate =
+        document.getElementById("incomeDate");
+
+    const expenseDate =
+        document.getElementById("expenseDate");
+
+
+    if (incomeDate && !incomeDate.value) {
+
+        incomeDate.value = today;
+
+    }
+
+
+    if (expenseDate && !expenseDate.value) {
+
+        expenseDate.value = today;
+
+    }
+
+}
+
+
+/* =========================================================
+   MONTHLY INCOME
+========================================================= */
+
+function saveIncome(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById("memberName")
+            .value.trim();
+
+    const mobile =
+        document.getElementById("mobile")
+            .value.trim();
+
+    const date =
+        document.getElementById("incomeDate")
+            .value;
+
+    const month =
+        document.getElementById("incomeMonth")
+            .value;
+
+    const amount =
+        Number(
+            document.getElementById("incomeAmount")
+                .value
+        );
+
+
+    if (!name || !date || !month || amount <= 0) {
+
+        showMessage(
+            "incomeMessage",
+            "બધી જરૂરી માહિતી સાચી રીતે ભરો.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const data = getIncomeData();
+
+
+    data.push({
+
+        id: Date.now(),
+
+        memberName: name,
+
+        mobile: mobile,
+
+        date: date,
+
+        month: month,
+
+        amount: amount
+
+    });
+
+
+    saveIncomeData(data);
+
+
+    document.getElementById("memberName").value = "";
+    document.getElementById("mobile").value = "";
+    document.getElementById("incomeAmount").value = "";
+
+
+    showMessage(
+        "incomeMessage",
+        "Income successfully save થઈ ગઈ. ✅",
+        "success"
+    );
+
+
+    updateDashboard();
+
+    renderIncomeHistory();
+
+}
+
+
+/* =========================================================
+   INCOME HISTORY
+========================================================= */
+
+function renderIncomeHistory() {
+
+    const tbody =
+        document.getElementById("incomeTableBody");
+
+    if (!tbody) return;
+
+
+    const filter =
+        document.getElementById("historyMonth")
+            ?.value || "";
+
+
+    let data =
+        getIncomeData();
+
+
+    if (filter) {
+
+        data =
+            data.filter(
+                item => item.month === filter
+            );
+
+    }
+
+
+    data =
+        [...data].reverse();
+
+
+    if (!data.length) {
+
+        tbody.innerHTML =
+            `<tr>
+                <td colspan="7" class="empty">
+                    Income history ઉપલબ્ધ નથી.
+                </td>
+            </tr>`;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        data.map((item, index) => {
+
+            return `
+                <tr>
+
+                    <td>${index + 1}</td>
+
+                    <td>${escapeHtml(item.memberName)}</td>
+
+                    <td>${escapeHtml(item.mobile || "-")}</td>
+
+                    <td>${formatDate(item.date)}</td>
+
+                    <td>${escapeHtml(item.month)}</td>
+
+                    <td>₹${formatMoney(item.amount)}</td>
+
+                    <td class="no-print">
+
+                        <button
+                            class="danger-btn"
+                            onclick="deleteIncome(${item.id})"
+                        >
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+            `;
+
+        }).join("");
+
+}
+
+
+function deleteIncome(id) {
+
+    if (!confirm("આ income entry delete કરવી છે?")) {
+
+        return;
+
+    }
+
+
+    let data =
+        getIncomeData();
+
+
+    data =
+        data.filter(
+            item => item.id !== id
+        );
+
+
+    saveIncomeData(data);
+
+    renderIncomeHistory();
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+function selectEvent(eventName) {
+
+    document.getElementById("eventName")
+        .value = eventName;
+
+
+    document.getElementById("ganpatiBtn")
+        .classList.remove("active");
+
+    document.getElementById("kundaBtn")
+        .classList.remove("active");
+
+
+    if (eventName === "ગણપતિ ઉત્સવ") {
+
+        document.getElementById("ganpatiBtn")
+            .classList.add("active");
+
+    }
+
+
+    if (eventName === "કુંડા વિતરણ") {
+
+        document.getElementById("kundaBtn")
+            .classList.add("active");
+
+    }
+
+}
+
+
+function saveExpense(event) {
+
+    event.preventDefault();
+
+
+    const eventName =
+        document.getElementById("eventName")
+            .value;
+
+    const date =
+        document.getElementById("expenseDate")
+            .value;
+
+    const amount =
+        Number(
+            document.getElementById("expenseAmount")
+                .value
+        );
+
+    const details =
+        document.getElementById("expenseDetails")
+            .value.trim();
+
+
+    if (!eventName || !date || amount <= 0) {
+
+        showMessage(
+            "eventMessage",
+            "Event, date અને amount જરૂરી છે.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const data =
+        getExpenseData();
+
+
+    data.push({
+
+        id: Date.now(),
+
+        eventName: eventName,
+
+        date: date,
+
+        amount: amount,
+
+        details: details
+
+    });
+
+
+    saveExpenseData(data);
+
+
+    document.getElementById("expenseAmount").value = "";
+
+    document.getElementById("expenseDetails").value = "";
+
+
+    showMessage(
+        "eventMessage",
+        "Event expense successfully save થઈ ગયો. ✅",
+        "success"
+    );
+
+
+    updateDashboard();
+
+    renderEventHistory();
+
+}
+
+
+/* =========================================================
+   EVENT HISTORY
+========================================================= */
+
+function renderEventHistory() {
+
+    const tbody =
+        document.getElementById("eventTableBody");
+
+    if (!tbody) return;
+
+
+    const filter =
+        document.getElementById("historyEvent")
+            ?.value || "";
+
+
+    let data =
+        getExpenseData();
+
+
+    if (filter) {
+
+        data =
+            data.filter(
+                item => item.eventName === filter
+            );
+
+    }
+
+
+    data =
+        [...data].reverse();
+
+
+    if (!data.length) {
+
+        tbody.innerHTML =
+            `<tr>
+                <td colspan="6" class="empty">
+                    Event history ઉપલબ્ધ નથી.
+                </td>
+            </tr>`;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        data.map((item, index) => {
+
+            return `
+                <tr>
+
+                    <td>${index + 1}</td>
+
+                    <td>${escapeHtml(item.eventName)}</td>
+
+                    <td>${formatDate(item.date)}</td>
+
+                    <td>${escapeHtml(item.details || "-")}</td>
+
+                    <td>₹${formatMoney(item.amount)}</td>
+
+                    <td class="no-print">
+
+                        <button
+                            class="danger-btn"
+                            onclick="deleteExpense(${item.id})"
+                        >
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+            `;
+
+        }).join("");
+
+}
+
+
+function deleteExpense(id) {
+
+    if (!confirm("આ expense entry delete કરવી છે?")) {
+
+        return;
+
+    }
+
+
+    let data =
+        getExpenseData();
+
+
+    data =
+        data.filter(
+            item => item.id !== id
+        );
+
+
+    saveExpenseData(data);
+
+    renderEventHistory();
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function updateDashboard() {
+
+    const income =
+        getIncomeData();
+
+    const expenses =
+        getExpenseData();
+
+
+    const members =
+        new Set(
+            income.map(
+                item => item.mobile || item.memberName
+            )
+        );
+
+
+    const totalIncome =
+        income.reduce(
+            (sum, item) =>
+                sum + Number(item.amount || 0),
+            0
+        );
+
+
+    const totalExpense =
+        expenses.reduce(
+            (sum, item) =>
+                sum + Number(item.amount || 0),
+            0
+        );
+
+
+    document.getElementById("totalMembers")
+        .textContent = members.size;
+
+
+    document.getElementById("totalIncome")
+        .textContent =
+        "₹" + formatMoney(totalIncome);
+
+
+    document.getElementById("totalExpense")
+        .textContent =
+        "₹" + formatMoney(totalExpense);
+
+}
+
+
+/* =========================================================
+   BACKUP
+========================================================= */
+
+function backupData() {
+
+    const backup = {
+
+        app: "Friend's Group BILDI",
+
+        version: 1,
+
+        createdAt:
+            new Date().toISOString(),
+
+        password:
+            localStorage.getItem(PASSWORD_KEY),
+
+        income:
+            getIncomeData(),
+
+        expenses:
+            getExpenseData()
+
+    };
+
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    backup,
+                    null,
+                    2
+                )
+            ],
+            {
+                type: "application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const a =
+        document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+        "friends-group-bildi-backup-" +
+        new Date().toISOString().slice(0, 10) +
+        ".json";
+
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+function restoreData(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = function(e) {
+
+        try {
+
+            const backup =
+                JSON.parse(e.target.result);
+
+
+            if (
+                !backup ||
+                backup.app !== "Friend's Group BILDI"
+            ) {
+
+                alert("આ valid Friend's Group BILDI backup નથી.");
+
+                return;
+
+            }
+
+
+            if (
+                confirm(
+                    "Restore કરવાથી હાલનો data replace થશે. Continue?"
+                )
+            ) {
+
+                if (backup.password) {
+
+                    localStorage.setItem(
+                        PASSWORD_KEY,
+                        backup.password
+                    );
+
+                }
+
+
+                localStorage.setItem(
+                    INCOME_KEY,
+                    JSON.stringify(
+                        backup.income || []
+                    )
+                );
+
+
+                localStorage.setItem(
+                    EXPENSE_KEY,
+                    JSON.stringify(
+                        backup.expenses || []
+                    )
+                );
+
+
+                alert(
+                    "Backup successfully restore થયો. ✅"
+                );
+
+
+                updateDashboard();
+
+                renderIncomeHistory();
+
+                renderEventHistory();
+
+            }
+
+        } catch (error) {
+
+            alert(
+                "Backup file વાંચવામાં error આવ્યો."
+            );
+
+        }
+
+    };
+
+
+    reader.readAsText(file);
+
+}
+
+
+/* =========================================================
+   PDF / PRINT
+========================================================= */
+
+function printIncome() {
+
+    const selected =
+        document.getElementById("historyMonth")
+            ?.value || "";
+
+
+    const title =
+        selected
+            ? `Friend's Group BILDI - ${selected} Income`
+            : "Friend's Group BILDI - Income History";
+
+
+    createPrintPage(
+        title,
+        buildIncomePrintHtml(selected)
+    );
+
+}
+
+
+function printEvents() {
+
+    const selected =
+        document.getElementById("historyEvent")
+            ?.value || "";
+
+
+    const title =
+        selected
+            ? `Friend's Group BILDI - ${selected}`
+            : "Friend's Group BILDI - Event History";
+
+
+    createPrintPage(
+        title,
+        buildEventPrintHtml(selected)
+    );
+
+}
+
+
+function createPrintPage(title, content) {
+
+    const printWindow =
+        window.open(
+            "",
+            "_blank"
+        );
+
+
+    if (!printWindow) {
+
+        alert(
+            "Print window open થઈ નથી. Browser permission check કરો."
+        );
+
+        return;
+
+    }
+
+
+    printWindow.document.write(`
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <meta charset="UTF-8">
+
+            <title>${escapeHtml(title)}</title>
+
+            <style>
+
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 25px;
+                }
+
+                h1 {
+                    text-align: center;
+                    color: #e65100;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
+                }
+
+                th,
+                td {
+                    border: 1px solid #ccc;
+                    padding: 8px;
+                    text-align: left;
+                }
+
+                th {
+                    background: #fff3e0;
+                }
+
+                .total {
+                    margin-top: 20px;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <h1>${escapeHtml(title)}</h1>
+
+            ${content}
+
+            <script>
+                window.onload = function() {
+                    window.print();
+                };
+            <\/script>
+
+        </body>
+
+        </html>
+    `);
+
+
+    printWindow.document.close();
+
+}
+
+
+function buildIncomePrintHtml(filter) {
+
+    let data =
+        getIncomeData();
+
+
+    if (filter) {
+
+        data =
+            data.filter(
+                item => item.month === filter
+            );
+
+    }
+
+
+    let total = 0;
+
+
+    const rows =
+        data.map((item, index) => {
+
+            total += Number(item.amount || 0);
+
+
+            return `
+                <tr>
+
+                    <td>${index + 1}</td>
+
+                    <td>${escapeHtml(item.memberName)}</td>
+
+                    <td>${escapeHtml(item.mobile || "-")}</td>
+
+                    <td>${formatDate(item.date)}</td>
+
+                    <td>${escapeHtml(item.month)}</td>
+
+                    <td>₹${formatMoney(item.amount)}</td>
+
+                </tr>
+            `;
+
+        }).join("");
+
+
+    return `
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>No.</th>
+                    <th>Member</th>
+                    <th>Mobile</th>
+                    <th>Date</th>
+                    <th>Month</th>
+                    <th>Amount</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${rows}
+
+            </tbody>
+
+        </table>
+
+        <div class="total">
+            Total Income: ₹${formatMoney(total)}
+        </div>
+    `;
+
+}
+
+
+function buildEventPrintHtml(filter) {
+
+    let data =
+        getExpenseData();
+
+
+    if (filter) {
+
+        data =
+            data.filter(
+                item => item.eventName === filter
+            );
+
+    }
+
+
+    let total = 0;
+
+
+    const rows =
+        data.map((item, index) => {
+
+            total += Number(item.amount || 0);
+
+
+            return `
+                <tr>
+
+                    <td>${index + 1}</td>
+
+                    <td>${escapeHtml(item.eventName)}</td>
+
+                    <td>${formatDate(item.date)}</td>
+
+                    <td>${escapeHtml(item.details || "-")}</td>
+
+                    <td>₹${formatMoney(item.amount)}</td>
+
+                </tr>
+            `;
+
+        }).join("");
+
+
+    return `
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>No.</th>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Details</th>
+                    <th>Amount</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${rows}
+
+            </tbody>
+
+        </table>
+
+        <div class="total">
+            Total Expense: ₹${formatMoney(total)}
+        </div>
+    `;
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function formatMoney(value) {
+
+    return Number(value || 0)
+        .toLocaleString("en-IN", {
+            maximumFractionDigits: 2
+        });
+
+}
+
+
+function formatDate(date) {
+
+    if (!date) return "-";
+
+
+    const parts =
+        date.split("-");
+
+
+    if (parts.length !== 3) {
+
+        return date;
+
+    }
+
+
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+}
+
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function showMessage(
+    elementId,
+    text,
+    type
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+
+    if (!element) return;
+
+
+    element.textContent = text;
+
+    element.className =
+        "message " + type;
+
+    element.style.display =
+        "block";
+
+
+    setTimeout(
+        () => {
+
+            element.style.display =
+                "none";
+
+        },
+        3000
+    );
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        checkLoginSetup();
+
+        setToday();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
