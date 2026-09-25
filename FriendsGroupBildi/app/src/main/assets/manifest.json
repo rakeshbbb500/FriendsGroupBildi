@@ -1,0 +1,22 @@
+{
+  "name": "Friend's Group BILDI",
+  "short_name": "BILDI",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f57c00",
+  "orientation": "portrait",
+  "description": "Friend's Group BILDI monthly income and event expense management app",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
