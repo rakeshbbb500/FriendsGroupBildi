@@ -1,0 +1,19 @@
+workflows:
+  android-workflow:
+    name: Friends Group BILDI Android Build
+
+    environment:
+      java: 17
+
+    scripts:
+      - name: Build Debug APK
+        script: |
+          gradle :app:assembleDebug --no-daemon
+
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - friendsgroupbildi@gmail.com
